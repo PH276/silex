@@ -141,3 +141,88 @@ sommaire :
 . Chaque route  est une action ds notre appli. Ensuite ns rangerons ttes nos actions ds des crtollers, pour optimiser notre organisation
 
 2/ route Hello {$name}
+    -> creation de la route /hello/{name}
+    -> test : http://localhost/silex/BOUTIQUE/web/index.php/hello/Pas
+
+3/ la fn Get() de notre Application
+    ->A chq nvelle fnalité, on va utiliser la fn get de $app, qui ns créer une nvelle route. En + de get, il existe post( et match()ns les verrons plus tard
+
+4/ arguments
+-> le 1er arg est le nom de la route. Les parametres contenus ds les URL sont alors déclarés en {}
+-> le second arg fn() est ce que l'on appelle une "closure" ou fn anonyme. Elle signbifie que ce qui va suivbre sera éxécuté. Une fn ds ue fn finalement. Elle peut recevoir les para dynamiques de notre URL ( ex : function($name))
+
+5/ fn escape()
+    -> permet de simplement d'afficher le parametre contenu ds la route. La méthode escape() permet d'éviter les injections SQL ds votre URL
+
+
+    ----------------------------------------------------------------------------------
+    ETAPE 4 : virtual host
+    ----------------------------------------------------------------------------------
+    sommaire :
+    1/ Modification du fichier vhost :
+        > c:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+    2/ Modification du fichier conf :
+        > c:\xampp\apache\conf\httpd.conf
+        (
+        vérifier que la ligne suivante soit déciommentée :
+        Include conf/extra/httpd-vhosts.conf
+        )
+
+    3/ Modification du fichier Hosts dans system32
+        > c:\windows\system32\drivers\etc\hosts
+
+    -------------------------------------------
+    ETAPE 5 : HTACCESS POUR RETIRER INDEX.PHP :
+    -------------------------------------------
+            -> Créer dans le dossier web de notre application, test.txt
+
+            <code>
+            <IfModule mod_rewrite.c>
+                Options -MultiViews
+
+                RewriteEngine On
+                RewriteCond %{REQUEST_FILENAME} !-f
+                RewriteRule ^ index.php [QSA,L]
+            </IfModule>
+
+            -> Enregistrer le fichier avec l'extension .htaccess. Pour ce faire, selectionner tous les formats
+
+    -------------------------------------
+    ETAPE 6 : DEMARRAGE DE L'APPLICATION :
+    --------------------------------------
+            Sommaire :
+            1/ Création des dossiers
+            2/ Récupérer les fichiers (de notre base site_mvc)
+            3/ Création du fichier de routes
+            4/ Ré-écriture de index.php
+            --------------------------------------
+
+            1/ Création des dossiers :
+                BOUTIQUE/
+                    web/      (déjà créé)
+                    vendor/ (déjà crée)
+                    app/     (config de l'application)
+                    db/     (script de creation de la bdd)
+                    src/     (fichiers sources de notre application)
+                    views/     (les vues de notre application)
+
+            2/ Récupérer les fichiers (de notre base site_mvc)
+                    Dans un premier temps on va gérer l'affichage de nos produits (boutique.php)
+                        -> model.php à copier/coller dans src/
+                        -> view.php à copier/coller dans views/
+                        -> css/ photo/ fonts/ à copier/coller dans web/
+
+            3/ Création du fichier de routes
+                creer un fichier de routes (qui va contenir ttes nos routes)
+                -> app/routes.php
+                -> on re créée la route '/' (la home), ds laquelle on va récupérer les infos de ts nos produits (grâve à model.php et sa fn afficheAll()) et on les affiche via la concept render() (temporisation puis affichage)
+
+            4/ Ré-écriture de index.php
+            -> A ce stade ns avons plus besoin des 2 routes écrites ds index.php,
+            mais on a besoin de require notre fichier de routes (routes.php)
+            -> on ajoute le mode debug car ns sommes en dev
+
+    ----------------------------------------------------------------------------------
+    ETAPE 7 : utilisation des services silex (doctrine DBAL)
+    ----------------------------------------------------------------------------------
