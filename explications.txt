@@ -1,0 +1,143 @@
+SILEX :
+----------------------------------------------------------------------------------
+SOMMAIRE :
+INTRO : Qu'est-ce que Silex ?
+ETAPE 0 : Base de notre app : site_mvc (procédural)
+ETAPE 1 : Installation de Silex
+ETAPE 2 : démarrage et compréhension
+ETAPE 3 : Le routing avec silex
+ETAPE 4 : virtual host
+ETAPE 5 : HTACCESS : on retire 'index.php'
+ETAPE 6 : démarrage de notre appli BOUTIQUE
+ETAPE 7 : utilisation des services silex (doctrine DBAL)
+ETAPE 8 : utilisation des services silex (twig)
+ETAPE 9 : utilisation des services silex(bootstrap)
+ETAPE 10 : ajout des commentaires à nos produits (injection de dépendance)
+ETAPE 11 : classe DAO
+ETAPE 12 : héritage TWIG
+ETAPE 13 : gestion de la sécu (connexion)
+ETAPE 14 : class membreDAO ry userProviderInterface
+ETAPE 15 : formulaire de connexion
+ETAPE 16 : formulaire d'inscription
+ETAPE 17 : formulaire de contact
+ETAPE 18 : backoffice
+ETAPE 19 : réorganisation en controller
+ETAPE 20 : prépa de la mise en prod
+
+----------------------------------------------------------------------------------
+INTRO : Qu'est-ce que Silex ?
+----------------------------------------------------------------------------------
+
+1/ Avantages à utiliser un framework ?
+    A/ choix d'une organisation optimisée. Il est très difficile de concevoir conceptualiser soi-même une apllo en obj (un frame maison). Où vont les controllers ? M ? C ? Aucune réponse n'est parfaite mais chacun a sa propreorganisation cohérente... ou pas
+
+    B/ fonctionnalités communes : un frame permet de récupérer des briques déjà existantes... et les récupérer du site A vers le B etc... (briques : connexion, inscription, session, commentaires)
+
+    C/ services duispo  : ts les frame proposent des services : routage, sécu, la gestion du cache etc... Cela vous permet de vous concentrer et de passer plus de temps au développement de vos propores fonctionnalités
+
+2/ Quel choix de frame ?
+
+        A/ son propre frame maison ?
+        très formateur !! on peut tjs l'améliorer et l'utiliser ds des projets persos... par contre : pas de doc et c'est difficile de garantir ts les aspects de sécu
+
+        B/ frame du marché :
+         - fullstack : synphony, zend, cake) : beaucoup de services dispo, grosses communauté, mais un déploiement très lourd et une archi IMPOSEE
+          - mini frame : Laravel et silex : proposent des qservices 'à la carte', et une architecte plus souple
+3/ et silex ds tt ça ?
+
+    A/ Silex est un frame développé par les équipes Sensiolabs, qui sont les créateurs de synfony. Il repose sur les mêmes composants
+
+    B/ On dit que silexest un miniframework parfait pour l'apprentissager et la compréhznsion de la logique frame. Parfait également pour développer des appli rapidement et première étape intéressante dans l'apprentissage de synfony
+
+    C/ doc : https:// silex.sensilolabs.org/doc/2.0
+
+
+
+    ----------------------------------------------------------------------------------
+    ETAPE 0 : Base de notre app : site_mvc (procédural)
+    ----------------------------------------------------------------------------------
+Pour Commencer la compréhension de silex, nous allons partir sur la base d'un morceau  de site précédural et en MVC afin d'avancer étape par étape :
+silex/site_mvc/
+    -> css copier de l'ancien sitre procédural)
+    -> photo/ (copier de votre ancien site procédural)
+    -> index.php (vide)
+    -> model.php (vide)
+    -> view.php (vide)
+
+    ----------------------------------------------------------------------------------
+    ETAPE 1 : Installation de Silex
+    ----------------------------------------------------------------------------------
+    1/ install de composer
+    2/ créa du dossier BOUTIQUE
+    3/ cmd pour téléchaerger les composants de silex
+    3bis/ autres techno pour téléchaerger les composants de silex
+    4/ tour d'horizon des  composants de silex
+    ------
+
+    1/ install de composer
+    Composer est un outil  de gestion des dépendances. il permet d'installer des services (composant, dépendances) et est relié à un composer.json
+
+    -> télécharger composer
+    -> installer composer (en précisant php.exe)
+
+    2/ créa du dossier BOUTIQUE
+
+
+    3/ cmd pour téléchaerger les composants de silex :
+    -> on se place ds le boutique
+    -> Maj + clicdroit > "ouvrir la fenêtre de cmd ici"
+
+    <cmd>
+    composer require silex/silex "~2.0"
+
+    3bis/ composer.json
+    <code>
+    {
+        "require": {
+            "silex/silex": "~2.0"
+        }
+    }
+
+    <cmd>
+    composer update
+
+    4/ Les composants :
+    Le dossier Vendor correspond aux coeur de notre frame. µIl contient ts les composants récupérés de Silex/synfony, sur lesquels ns n'intervie,ndrons jamais
+
+
+    ----------------------------------------------------------------------------------
+    ETAPE 2 : démarrage et compréhension
+    ----------------------------------------------------------------------------------
+
+Sommaire :
+1/ création du repertoire web/
+2/ création du fichier index.php
+
+
+1/ création du repertoire web/
+    -> à la racine de notre appli BOUTIQUE/web/
+    -> ce dossier constitue notre repertoire web. cela signifie qu'il va contenir tt ce qui est utile et visible  pour l'internaute(navigateur) (css, photo, js, ...)
+
+2/ création du fichier index.php
+    -> d'abord on require autoload qui se chargera de requirer ts les fichiers dont on aura besoin. PRATIQUE !!
+    -> On instancie la classe Application : L'objet $app va représenter notre aplli et ns donne accès à ttes les fonctionnalités de Silex.
+
+    -> méthode run() : lancement de l'appli
+
+
+    ----------------------------------------------------------------------------------
+    ETAPE 3 : Le routing avec silex
+    ----------------------------------------------------------------------------------
+sommaire :
+1/ route Hello world
+2/ route Hello {$name}
+3/ la fn Get() de notre Application
+4/ arguments
+5/ fn escape()
+----
+
+1/ route Hello world
+    -> $app -> get() est la fn qui nous permet de créer une nouvelle route
+. Chaque route  est une action ds notre appli. Ensuite ns rangerons ttes nos actions ds des crtollers, pour optimiser notre organisation
+
+2/ route Hello {$name}
