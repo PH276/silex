@@ -21,8 +21,13 @@ $app = new Silex\Application;
 //
 // });
 
-$app['debug'] = true;
+// mis en commentaire à l'étape 7.10
+//$app['debug'] = true;
 
+
+
+require __DIR__ . '/../app/config/dev.php';
+require __DIR__ . '/../app/app.php';
 
 require __DIR__ . '/../app/routes.php';
 

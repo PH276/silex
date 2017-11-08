@@ -223,6 +223,179 @@ sommaire :
             mais on a besoin de require notre fichier de routes (routes.php)
             -> on ajoute le mode debug car ns sommes en dev
 
+==============================================================================================
+==============================================================================================
+
     ----------------------------------------------------------------------------------
     ETAPE 7 : utilisation des services silex (doctrine DBAL)
     ----------------------------------------------------------------------------------
+    Sommaire :
+    1/ creation de la classe Produit ds src/Entity
+    2/ remplacement de PDO par doctrine DBAL
+    3/ creer le dossier DAO ()
+    4/ Ajouter le fichier ProduitDAO.php
+    5/ MAJ de l'appli via composer
+    6/ creation du fichier app.php dsapp/
+    7/ creation du fichier prod.php ds app/config
+    8/ creation du fichier dev.php ds app/config
+    9/ modif des routes
+    10/ modifs de la vue
+    11/ modif de l'index.php
+
+
+    1/ creation de la classe Produit ds src/Entity
+    -> cette class est un POPO (Plain Old PHP Object)
+
+
+
+    2/ remplacement de PDO par doctrine DBAL (Data Base Abstract Layer)
+    -> DBAL : PDO amélioré et en singleton (service de silex)
+
+
+
+    3/ creer le dossier DAO ()
+    -> voir la methode buildProduit()
+
+
+
+    4/ Ajouter le fichier ProduitDAO.php
+    -> ds src/DAO
+    -> model produit
+    -> gère les requetes SQL sous forme d'objets
+    -> récup de la connec à la BD avec Doctribe\DBAL\Connection
+    -> on la stocke ds la prop $db
+    -> chq req SQL sera représentée  par une fn
+    -> pour chacune d'elles, array --> Objet (qd possible) grâce = buildProduit()
+
+    ====> DAO = array --> Objet pour les res SQL
+
+
+    5/ MAJ de l'appli via composer
+    -> modifier notre fichier composer.json
+    {
+        "require": {
+            "silex/silex": "~2.0",
+            "doctrine/dbal": "2.5"
+        }
+        "autoload": {
+            "psr-4" : {"BOUTIQUE\\": "src"}
+        }
+    }
+    -> cmd composer update :
+         - récupère les composants Doctrine DBAL
+         - Mis à jour l'autoload selon la norme psr-4 les noms namespace correspondent à des noms de dossier
+
+
+    6/ creation du fichier app.php dsapp/
+    -> représente les par de notre appli .
+    -> fichier à modifier en cas de déplacement de l'appli d'1 serv à un autre à l'instar de init.inc.php (prcédural)
+    ->les 2 1eres lignes permettent de gerer sous forme d'exception.
+        les composants Symfony prennent la main sur la gestion des erreurs
+    -> ensuite on entregistre le service  doctrine DBAL
+    -> on enregistre notre classe ProduitDAO ds $app. ==> plus simple à utiliser
+    ->
+
+
+    7/ creation du fichier prod.php ds app/config
+    -> infos de connexion à la BD
+
+
+    8/ creation du fichier dev.php ds app/config
+    -> infos relatives à la phase de dev
+
+
+    9/ modif des routes (routes.php)
+    -> mode.php remplacé par une instanciation de ProduitDAO (qui est notre nv model) où se trovent les fn findAll() et findAllCategories()
+    -> la logique Controller / Model est la même
+
+    /!\ view.php utilise des array. Maintenant, ce sont des Objets
+
+
+    10/ modif de la vue
+     -> rempolacement des arrays par des getters
+        array : <= pdt['titre'] ?>
+        objet : <= pdt->getTitre ?>
+        twig : {{ pdt.titre }}
+
+
+    11/ modif de l'index.php
+
+
+
+
+    ----------------------------------------------------------------------------------
+    ETAPE 8 : utilisation des services silex (twig)
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+
+    ----------------------------------------------------------------------------------
+    ETAPE 9 : utilisation des services silex(bootstrap)
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+
+    ----------------------------------------------------------------------------------
+    ETAPE 10 : ajout des commentaires à nos produits (injection de dépendance)
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+
+    ----------------------------------------------------------------------------------
+    ETAPE 11 : classe DAO
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+
+    ----------------------------------------------------------------------------------
+    ETAPE 12 : héritage TWIG
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+
+    ----------------------------------------------------------------------------------
+    ETAPE 13 : gestion de la sécu (connexion)
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+
+    ----------------------------------------------------------------------------------
+    ETAPE 14 : class membreDAO ry userProviderInterface
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+
+    ----------------------------------------------------------------------------------
+    ETAPE 15 : formulaire de connexion
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+
+    ----------------------------------------------------------------------------------
+    ETAPE 16 : formulaire d'inscription
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+
+    ----------------------------------------------------------------------------------
+    ETAPE 17 : formulaire de contact
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+
+    ----------------------------------------------------------------------------------
+    ETAPE 18 : backoffice
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+
+    ----------------------------------------------------------------------------------
+    ETAPE 19 : réorganisation en controller
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/
+    ----------------------------------------------------------------------------------
+    ETAPE 20 : prépa de la mise en prod
+    ----------------------------------------------------------------------------------
+    Sommaire :
+    1/

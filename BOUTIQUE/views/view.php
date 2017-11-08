@@ -1,7 +1,8 @@
 <!Doctype html>
 <html>
 <head>
-    <title>Mon Site - <?= $page ?></title>
+    <?php //$page = ($page)?' - '.$page:'' ?>
+    <title>Mon Site</title>
     <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
@@ -36,20 +37,21 @@
 
     <div class="boutique-droite">
 
-        <?php for ($i=0; $i < count($produits) ; $i++) : ?>
+
+        <?php foreach ($produits as $pdt) : ?>
 
             <!-- Debut vignette produit -->
             <div class="boutique-produit">
-                <h3><?= $produits[$i]['titre'] ?></h3>
-                <a href="fiche_produit.php?id=<?= $produits[$i]['id_produit'] ?>"><img src="photo/<?= $produits[$i]['photo'] ?>" height="100"/></a>
-                <p style="font-weight: bold; font-size: 20px;"><?= $produits[$i]['prix'] ?>€</p>
+                <h3><?= $pdt -> getTitre() ?></h3>
+                <a href="fiche_produit.php?id=<?= $pdt -> getId_produit() ?>"><img src="photo/<?= $pdt -> getPhoto() ?>" height="100"/></a>
+                <p style="font-weight: bold; font-size: 20px;"><?= $pdt -> getPrix() ?>€</p>
 
-                <p style="height: 40px"><?= substr($produits[$i]['description'], 0, 40); ?>...</p>
-                <a href="fiche_produit.php?id=<?= $produits[$i]['id_produit'] ?>" style="padding:5px 15px; background: red; color:white; text-align: center; border: 2px solid black; border-radius: 3px" >Voir la fiche</a>
+                <p style="height: 40px"><?= substr($pdt -> getDescription(), 0, 40); ?>...</p>
+                <a href="fiche_produit.php?id=<?= $pdt -> getId_produit() ?>" style="padding:5px 15px; background: red; color:white; text-align: center; border: 2px solid black; border-radius: 3px" >Voir la fiche</a>
                 <!-- href="fiche_produit.php?id=id_du_produit" -->
             </div>
             <!-- Fin vignette produit -->
-        <?php endfor; ?>
+        <?php endforeach; ?>
 
     </div>
     <!-- Fin vignette produit -->
