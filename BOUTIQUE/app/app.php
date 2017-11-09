@@ -13,5 +13,9 @@ $app -> register (new Silex\Provider\DoctrineServiceProvider());
 // on enregistre ds $app['dao.produit'] un objet de la classe ProduitDAO de manière à ce qu'il soit directement accessibble via $app/
 $app['dao.produit'] = function($app){
     return new BOUTIQUE\DAO\ProduitDAO($app['db']);
-
 };
+
+// on enregistre le service TWIG
+$app -> register (new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__ . '/../views'
+));

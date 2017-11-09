@@ -21,7 +21,7 @@ $app = new Silex\Application;
 //
 // });
 
-// mis en commentaire à l'étape 7.10
+// mis en commentaire à l'étape 7.11
 //$app['debug'] = true;
 
 

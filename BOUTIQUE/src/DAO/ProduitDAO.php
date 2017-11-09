@@ -52,12 +52,34 @@ class ProduitDAO
         return $produits;
     }
 
+    public function findAllCategorie($cat){
+        $requete = "SELECT * FROM produit WHERE categorie= ?";
+        $resultat = $this -> getDb() -> fetchAll($requete, array($cat)); // array multidimenssionnel
+
+        $produits = array();
+
+        foreach ($resultat as $value){
+            $id_produit = $value['id_produit'];
+            $produits[$id_produit] = $this -> buildProduit($value);
+        }
+
+        return $produits;
+    }
 
     public function findAllCategories(){
         $requete = "SELECT DISTINCT categorie FROM produit";
         $categories = $this -> getDb() -> fetchAll($requete); // array multidimenssionnel
 
         return $categories;
+    }
+
+    public function findById($id){
+        $requete = "SELECT * FROM produit WHERE id_produit= ?";
+        $resultat = $this -> getDb() -> fetchAssoc($requete, array($id)); // array multidimenssionnel
+
+        $produit = $this -> buildProduit($resultat);
+
+        return $produit;
     }
 
 

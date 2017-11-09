@@ -281,7 +281,8 @@ sommaire :
             "psr-4" : {"BOUTIQUE\\": "src"}
         }
     }
-    -> cmd composer update :
+    -> <cmd>
+     composer update :
          - récupère les composants Doctrine DBAL
          - Mis à jour l'autoload selon la norme psr-4 les noms namespace correspondent à des noms de dossier
 
@@ -319,6 +320,15 @@ sommaire :
 
 
     11/ modif de l'index.php
+    -> mise en commentaire de :
+        $app['debug'] = true;
+    -> ajout de (avant require __DIR__ . '/../app/routes.php';) :
+        require __DIR__ . '/../app/config/dev.php';
+        require __DIR__ . '/../app/app.php';
+
+
+
+
 
 
 
@@ -327,7 +337,69 @@ sommaire :
     ETAPE 8 : utilisation des services silex (twig)
     ----------------------------------------------------------------------------------
     Sommaire :
-    1/
+    1/ INTRO
+    2/ modif composer.json
+    3/ MAJ via Composer
+    4/ modif de app.php (enrgt des nv services)
+    5/ modif des fich. view.php en TWIGfn render( modif des routes)
+    6/ modid des routes
+
+    1/ INTRO :
+    -> il existe plusireurs moteurstemplate : liquid, TPL, smarty, Blade, Twig (pour silex et symfony).
+    -> de manière géné un moteur de template permet de simplifier l'insertion de var et de boucle PHP ds les blocs html. (l'idée des formes contractées)
+    -> TWIG a l'avantage de proposer un syst d'héritage . En d'autre termes des morceaux d'html vont hériter d'autres morceau html. ex :
+    Le formulaire d'inscription hérite du template général de la page
+
+    2/ modif composer.json :
+    <code>
+    {
+            "require": {
+                "silex/silex": "~2.0",
+                "doctrine/dbal": "2.5",
+                "twig/twig": "~1.28"
+            },
+            "autoload": {
+                "psr-4" : {"BOUTIQUE\\": "src"}
+            }
+        }
+
+
+    3/ MAJ via Composer (ds le rep BOUTIQUE)
+    <cmd>
+    composer update
+
+
+    4/ modif de app.php (enrgt des nv services)
+    -> engt aux services TWIG
+    -> l'engt nécessite qu'on passe en arg le chemin de nos vues
+    <code>
+    $app -> register (new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__ . '/../views'
+    ))
+
+    5/ modif des fich. view.php en TWIGfn render( modif des routes)
+    -> view.php --> index.html.twig
+    -> produit.php -> produit.html.twig
+
+    <php>
+    <?php foreach ($produits as $pdt) : ?>
+        $pdt -> getTitre()
+    <?php endforeach; ?>
+
+    <twig>
+    {# commentaire #}
+    {% for $pdt in $produits : ?}
+        $pdt -> getTitre()
+    {% endforeach; %}
+
+
+    6/ modif des routes
+     -> ajout de la method render()
+
+     en savoir plus sur twig doc : https://twig.symfony.com
+
+
+
 
     ----------------------------------------------------------------------------------
     ETAPE 9 : utilisation des services silex(bootstrap)
