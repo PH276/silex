@@ -1,30 +1,11 @@
-<!Doctype html>
-<html>
-<head>
+{% extends 'layout.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
 
-	<title>Mon Site - {{ title }}</title>
-	<link rel="stylesheet" href="../css/style.css"/>
-</head>
-<body>
-	<header>
-		<div class="conteneur">
-			<span>
-				<a href="/" title="Mon Site">MonSite.com</a>
-			</span>
-			<nav>
-				<a href="">Connexion</a>
-				<a href="">Inscription</a>
-				<a href="">Profil</a>
-				<a href="">Panier</a>
-				<a href="/boutique">Boutique</a>
-			</nav>
-		</div>
-	</header>
-	<section>
 		<div class="conteneur">
 			<h1>{{ produit.titre }}</h1>
 
-			<img src="../photo/{{ produit.photo }}" width="250" />
+			<img src="{{ asset('photo/'~ produit.photo) }}" width="250" />
 			<p>Détails du produit : </p>
 			<ul>
 				<li>Référence : <b>{{ produit.reference }}</b></li>
@@ -74,11 +55,5 @@
 			</div>
 
 		</div>
-	</section>
-	<footer>
-		<div class="conteneur">
-			{{ "now" |date('Y')  }} - Tous droits reservés.
-		</div>
-	</footer>
-</body>
-</html>
+
+	{% endblock %}

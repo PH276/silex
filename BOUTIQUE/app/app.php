@@ -19,3 +19,11 @@ $app['dao.produit'] = function($app){
 $app -> register (new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../views'
 ));
+
+// on enregistre le service assets
+$app -> register(new Silex\Provider\AssetServiceProvider(), array(
+    'assets.version' => 'v1'
+));
+
+// on enregistre le service form
+$app -> register(new Silex\Provider\FormServiceProvider());

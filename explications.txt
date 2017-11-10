@@ -392,16 +392,82 @@ sommaire :
     6/ modif des routes
      -> ajout de la method render()
 
-     en savoir plus sur twig doc : https://twig.symfony.com
+     -> la methode render est globalement commune à toute les application OBJ/MVC bien modelisé
+     Elle va rendre une vue et embarquer tous les paramètres dynamique nécéssaire à cette vue.
+     -> Les paramètres embarqués, le sont toujours sous forme d'un array.
 
-
+     ===> A ce stade, notre home doit s'afficher. Test : www.boutique.dev.
+     ===> En savoir plus sur Twig : https://twig.symfony.com/
 
 
     ----------------------------------------------------------------------------------
-    ETAPE 9 : utilisation des services silex(bootstrap)
+    ETAPE 9 : utilisation des services silex (bootstrap)
     ----------------------------------------------------------------------------------
-    Sommaire :
-    1/
+    Sommaire:
+      1/ Modification de composer.json
+      2/ Mise à jour des services
+      3/ Modification de app.php
+      4/ Modification des vues (chemins css/js/image)
+      5/ Modification des vues  routes (liens)
+    --------------------------------------
+
+      1/ Modification dde composer.json
+      <code>
+        {
+            "require": {
+                "silex/silex": "~2.0",
+                "doctrine/dbal": "2.5",
+                "twig/twig": "~1.28",
+                "symfony/asset": "~2.8|3.0.*"
+            },
+            "autoload": {
+                "psr-4" : {"BOUTIQUE\\": "src"}
+            }
+        }
+
+        2/ Mise à jours des services
+        <cmd>
+        -> composer update
+        -> composer require symfony/twig-bridge
+
+        3/ Modification de app.php
+        $app -> register(new Silex\Provider\AssetServiceProvider(), array(
+            'assets.version' => 'v1'
+        ));
+
+        4/ Modification des vues (chemins css/js/image)
+        ->On modifie tout les chemin des ressources de cette manière :
+          sans asset :
+          src="/photo/{{pdt.photo}}"
+          href="../css/styles.ccs"
+
+          avec asset:
+          src="{{ asset('photo/'~ pdt.photo) }}"
+          href="{{ asset('/css/style.css') }}"
+
+        5/ Modification des vues  et des routes (liens)
+        -> Liens :
+          - href="/profil/"
+          -href="/boutique/{{categorie.categorie}}"
+          -href="/produit/{{pdt.id_produit}}"
+
+          - href="{{path('profil')}}"
+          -href="{{ path ('boutique', {'categorie' : categorie.categorie}) }}"
+          -href="{{path ('produit', {'id' : pdt.produit})}}"
+
+        -> Chaque route va avoir un nom :
+          $app->get('/profil/', function() use app{
+            //traitement.....
+            //traitement.....
+          })-> bind('profil')
+
+          $app->get('/boutique/ '{categorie}
+
+          )-> bind('boutique')
+
+          $app->get('/produit/{id}'
+
+          )-> bind('produit')
 
     ----------------------------------------------------------------------------------
     ETAPE 10 : ajout des commentaires à nos produits (injection de dépendance)
@@ -419,7 +485,24 @@ sommaire :
     ETAPE 12 : héritage TWIG
     ----------------------------------------------------------------------------------
     Sommaire :
-    1/
+    1/ creer le fichier layout.html.twig (structure de page)
+    2/ modifier nos vues
+
+    1/ creer le fichier layout.html.twig (structure de page)
+    -> on y met tte structure d'une page :
+    ***** contenu de header.inc.php *****
+
+    {% block content %}
+            **** contenu de la page *****
+    {% endblock %}
+
+    ***** contenu de footer.inc.php *****
+
+    2/ modifier nos vues
+    {% extends 'layout.html.twig' %}
+    {% block content %}
+            **** contenu de la page *****
+    {% endblock %}
 
     ----------------------------------------------------------------------------------
     ETAPE 13 : gestion de la sécu (connexion)
@@ -428,7 +511,7 @@ sommaire :
     1/
 
     ----------------------------------------------------------------------------------
-    ETAPE 14 : class membreDAO ry userProviderInterface
+    ETAPE 14 : class membreDAO et userProviderInterface
     ----------------------------------------------------------------------------------
     Sommaire :
     1/
@@ -449,7 +532,15 @@ sommaire :
     ETAPE 17 : formulaire de contact
     ----------------------------------------------------------------------------------
     Sommaire :
-    1/
+    1/ creer la route (render)
+    2/ faire contact.html.twig
+    3/ creer ContactType (classe qui construit le formulaire)
+        -> MAJ de l'app (json + composer)
+        -> enregistrement service form
+        -> Form/Type/ContactType
+    4/ modifier la route (traitement de l'email)
+    5/ modifier la vue contact.html.twig
+    6/ modifier la route (traitement de l'email)
 
     ----------------------------------------------------------------------------------
     ETAPE 18 : backoffice

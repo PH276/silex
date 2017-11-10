@@ -1,4 +1,4 @@
-<?php
+ype<?php
 namespace BOUTIQUE\Entity;
 class produit
 {
