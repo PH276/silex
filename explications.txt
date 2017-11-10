@@ -329,10 +329,6 @@ sommaire :
 
 
 
-
-
-
-
     ----------------------------------------------------------------------------------
     ETAPE 8 : utilisation des services silex (twig)
     ----------------------------------------------------------------------------------
@@ -342,7 +338,7 @@ sommaire :
     3/ MAJ via Composer
     4/ modif de app.php (enrgt des nv services)
     5/ modif des fich. view.php en TWIGfn render( modif des routes)
-    6/ modid des routes
+    6/ modif des routes
 
     1/ INTRO :
     -> il existe plusireurs moteurstemplate : liquid, TPL, smarty, Blade, Twig (pour silex et symfony).
@@ -388,9 +384,9 @@ sommaire :
 
     <twig>
     {# commentaire #}
-    {% for $pdt in $produits : ?}
-        $pdt -> getTitre()
-    {% endforeach; %}
+    {% for $pdt in $produits ?}
+        pdt.titre
+    {% endforeach %}
 
 
     6/ modif des routes

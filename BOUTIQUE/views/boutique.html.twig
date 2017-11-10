@@ -1,8 +1,7 @@
 <!Doctype html>
 <html>
 <head>
-    <?php //$page = ($page)?' - '.$page:'' ?>
-    <title>Mon Site</title>
+    <title>Mon Site - {{ title }}</title>
     <link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body>
@@ -17,47 +16,47 @@
                 <a href="">Profil</a>
                 <a href="">Panier</a>
                 <a href="/boutique">Boutique</a>
-        </nav>
-    </div>
-</header>
-<section>
-    <div class="conteneur">
-    </h1>Boutique</h1>
+            </nav>
+        </div>
+    </header>
+    <section>
+        <div class="conteneur">
+        </h1>Boutique</h1>
 
-    <div class="boutique-gauche">
-        <ul>
+        <div class="boutique-gauche">
+            <ul>
 
-            <li><a href="/boutique">Tous les produits</a></li>
-            {% for categorie in categories %}
+                <li><a href="/boutique">Tous les produits</a></li>
+                {% for categorie in categories %}
                 <li><a href="/boutique/{{ categorie.categorie }}">{{ categorie.categorie }}</a></li>
-            {% endfor %}
+                {% endfor %}
 
-        </ul>
-    </div>
+            </ul>
+        </div>
 
-    <div class="boutique-droite">
+        <div class="boutique-droite">
 
-        {% for pdt in produits %}
+            {% for pdt in produits %}
 
             <!-- Debut vignette produit -->
             <div class="boutique-produit">
                 <h3>{{ pdt.titre }}</h3>
-                <a href="fiche_produit/{{ pdt.id_produit }}"><img src="/photo/{{ pdt.photo }}" height="100"/></a>
+                <a href="/fiche_produit/{{ pdt.id_produit }}"><img src="/photo/{{ pdt.photo }}" height="100"/></a>
                 <p style="font-weight: bold; font-size: 20px;">{{ pdt.prix }}€</p>
 
 
                 <p style="height: 40px"> {{ pdt.description |striptags| slice(0, 40) }}...</p>
-                <a href="fiche_produit/{{ pdt.id_produit }}" style="padding:5px 15px; background: red; color:white; text-align: center; border: 2px solid black; border-radius: 3px" >Voir la fiche</a>
+                <a href="/fiche_produit/{{ pdt.id_produit }}" style="padding:5px 15px; background: red; color:white; text-align: center; border: 2px solid black; border-radius: 3px" >Voir la fiche</a>
                 <!-- href="fiche_produit.php?id=id_du_produit" -->
             </div>
             <!-- Fin vignette produit -->
-        {% endfor %}
+            {% endfor %}
+
+        </div>
+        <!-- Fin vignette produit -->
 
     </div>
     <!-- Fin vignette produit -->
-
-</div>
-<!-- Fin vignette produit -->
 
 </div>
 

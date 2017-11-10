@@ -85,7 +85,8 @@ $app -> get('/fiche_produit/{id}', function($id) use($app){
     // ajout à la l'étape 8.6
     $params = array(
         'produit' => $produit,
-        'title' => 'Boutique'
+        'nb_max_panier' => ($produit->getStock()<5)?$produit->getStock():5,
+        'title' => $produit->getTitre()
     );
 
     return $app['twig'] -> render('produit.html.twig', $params);
@@ -109,7 +110,7 @@ $app -> get('/boutique/{cat}', function($cat) use($app){
     $params = array(
         'produits' => $produits,
         'categories' => $categories,
-        'title' => $categories
+        'title' => $cat
     );
 
     return $app['twig'] -> render('boutique.html.twig', $params);
