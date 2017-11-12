@@ -142,7 +142,6 @@ $app -> get('/profil', function() use ($app){
     return $app ['twig'] -> render('profil.html.twig', $params);
 }) -> bind('profil');
 
-
 // fonctionnalité pour le formlaire de contact : /contact/
 $app -> match('/contact/', function(Request $request) use ($app){
 

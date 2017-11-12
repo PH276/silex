@@ -27,3 +27,12 @@ $app -> register(new Silex\Provider\AssetServiceProvider(), array(
 
 // on enregistre le service form
 $app -> register(new Silex\Provider\FormServiceProvider());
+
+$app -> register ( new Silex\Provider\LocaleServiceProvider ());
+
+//$app->register(new Silex\Provider\ValidatorServiceProvider());
+
+$app -> register(new Silex\Provider\TranslationServiceProvider(), array(
+    // 'locale_fallbacks' => array ( 'fr' ),
+     'translator.messages' => array()
+  ));

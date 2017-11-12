@@ -24,6 +24,6 @@ class ContactType extends AbstractType
             'press' => 'Service presse²'
             )
         ))
-                -> add('message', AreaType::class, array(/* Condition */ ));
+    -> add('message', TextareaType::class, array(/* Condition */ ));
                 }
             }

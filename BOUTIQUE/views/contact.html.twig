@@ -8,7 +8,7 @@
 
     {% if contactForm %}
 
-    {{ form_start(contact)}}
+    {{ form_start(contactForm)}}
 
     <label>Prénom : </label>
     {{ form_errors(contactForm.prenom) }}
@@ -32,7 +32,7 @@
 
     <input type="submit"  value="Envoyer l'email">
 
-    {{ form_start(contact)}}
+    {{ form_end(contactForm)}}
 {% endif %}
 </div>
 
