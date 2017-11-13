@@ -1,0 +1,64 @@
+{% extends 'layout.html.twig' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+
+<div class="conteneur">
+</h1>{{title}}</h1>
+
+<div>
+
+
+    <!-- Debut vignette produit -->
+    <div class="boutique-produit">
+        <table border=1>
+            <tr>
+                <td>Photo</td>
+                <td>Id du produit</td>
+                <td>Titre</td>
+                <td>Référence</td>
+                <td>Catégorie</td>
+                <td>Taille</td>
+                <td>Couleur</td>
+                <td>Public</td>
+                <td>Description</td>
+                <td>Prix</td>
+                <td>Stock</td>
+                <td colspan="2">Actions</td>
+
+            </tr>
+            {% for pdt in produits %}
+            <tr>
+                <td><img src="{{asset('/photo/' ~ pdt.photo) }}" alt="" height="80"></td>
+                <td>{{pdt.id_produit}}</td>
+                <td>{{pdt.titre}}</td>
+                <td>{{ pdt.reference}}</td>
+                <td>{{ pdt.categorie}}</td>
+                <td>{{pdt.taille}}</td>
+                <td>{{ pdt.couleur}}</td>
+                {% if pdt.public == 'm' %}
+                <td>Homme</td>
+                {% elseif pdt.public == 'f' %}
+                <td>Femme</td>
+                {% else %}
+                <td>Mixte</td>
+                {% endif  %}
+                <td>{{ pdt.description}}</td>
+                <td>{{pdt.prix}}</td>
+                <td>{{pdt.stock}}</td>
+                <td><img src="{{asset('/img/edit.png') }}" alt="" width="20"></td>
+                <td><img src="{{asset('/img/delete.png') }}" alt="" width="20"></td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+    <!-- Fin vignette produit -->
+
+</div>
+<!-- Fin vignette produit -->
+
+</div>
+
+
+{% endblock %}

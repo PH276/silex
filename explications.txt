@@ -533,26 +533,101 @@ sommaire :
     ----------------------------------------------------------------------------------
     Sommaire :
     1/ creer la route (render)
+        -> creation de la route 'contact'
+        -> interaction formulaire Silex et ttes fonctionnalités de Silex => utiliser le composant Request (gère la soumission du form)
+        -> . La fn anonyme attend donc un obj de la class Request.
+            <code>
+            use Symphony ... Request
+        -> cette route traite des infos get (nm de la route) et en post pour le formulaire ==> utiliser la fn match() (get + post)
+
     2/ faire contact.html.twig
+     -> form non en HTML. juste prépa  de la page
+     -> form créé avec la classe abstraite AbstractType (faiyt pour la construction de form)
+
     3/ creer ContactType (classe qui construit le formulaire)
-        -> MAJ de l'app (json + composer)
-        -> enregistrement service form
-        -> Form/Type/ContactType
-    4/ modifier la route (traitement de l'email)
-    5/ modifier la vue contact.html.twig
-    6/ modifier la route (traitement de l'email)
+    -> fich ContactType (class) hérite de AbstractType ds le dossier Form/Type
+    -> méthode formBuilder permet de construire un form, attend en arg un obj de l'interface FormBuilderInterface
+    -> la méthod add de notre builder permet de construire chq ch avec des conditions de validation, ainsi que les class css , les atributs etc...
+
+
+    4/ enreguistrement de nvx services (json + composer + app.php)
+    -> MAJ de l'app (json + composer) :
+    ...
+    "symfony/form": "^2.8|3.0.*",
+    "symfony/translation": "~2.8|3.0.*",
+    "symfony/config": "~2.8|3.0.*",
+     "symfony/validator": "^3.2"
+
+    -> enregistrement service form (ds app.php)
+
+    $app -> register(new Silex\Provider\FormServiceProvider());
+    $app -> register ( new Silex\Provider\LocaleServiceProvider ());
+    $app -> register(new Silex\Provider\ValidatorServiceProvider());
+    $app -> register(new Silex\Provider\TranslationServiceProvider();
+
+    -> Form/Type/ContactType
+
+    5/ modifier la route (traitement de l'email)
+    -> récup du formulaire
+    ->
+
+    6/ modifier la vue contact.html.twig
+    -> voir fichier
+
+
+    7/ modifier la route (traitement de l'email)
+    -> contactForm contient les method issubitted() et isvalid()
+    -> ce syst qui rempla ttes les vérif bn faià faire en procédural
+
+    -> à ce stade on récupère les infos du form
+    -> reste à ajouter le traitement pour un fonctionnement complet
+
+
+
 
     ----------------------------------------------------------------------------------
     ETAPE 18 : backoffice
     ----------------------------------------------------------------------------------
     Sommaire :
-    1/
+    1/ creer un ctrl BackofficeController
+    2/ creer la route get ('backoffice/produit')
+    3/ creer la fn produitAction ds BackofficeController et gerer tte la fn
+    4/ creer vue backoffice_produit.html.twig qui va afficher ts les prioduits sous forme d'un tab
+    5/ creer la route match ('backoffice/produit/{id}/add') (bo_produit_add)
+    6/ creer la fn addProduitAction() et gerer  l'affichage de la page ajout
+    7/ creer ProduitType pour creer le form d'ajout de produit
+    8/ Modifier la fn addProduitAction( pour qu'elle affiche ke form)
+
 
     ----------------------------------------------------------------------------------
     ETAPE 19 : réorganisation en controller
     ----------------------------------------------------------------------------------
     Sommaire :
-    1/
+    1/ creation de 3 controlleurs membreController, baseController et ProduitController
+    2/ creation des fn ds nos controlleurs
+    3/ modifs des routes
+    4/ modifs des fn ds nos controleur
+
+    1/ creation de 2 controlleurs membreController, baseController et ProduitController :
+        -> ds le dossier src : dossier Controller :
+            -> baseController.php
+            -> ProduitController.php
+            -> MembreController.php
+        -> ds chq controleur, on a autant d'action (fn) que d'affichage prévu. (1 affichage ==> une fonction)
+
+        2/ creation des fn ds nos controlleurs
+        ->on crée des fn pour chq controlleur en fn des affichages et des actions qu'ils doivent gérer.
+            -> ex :
+            -> ex :
+
+    3/ modifs des routes
+    -> les routes ne contiennent plus de traitement mais simplement  la fn qu'il faut executer
+
+    4/ modifs des fn ds nos controleur
+    -> ts les traitements qui étaient présents ds les routes, sont maintenant encapsullés ds les fn des controllers
+
+
+
     ----------------------------------------------------------------------------------
     ETAPE 20 : prépa de la mise en prod
     ----------------------------------------------------------------------------------
